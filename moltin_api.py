@@ -6,7 +6,7 @@ from config import ELASTICPATH_ID
 from database import get_database_connection
 
 
-def request_token(redis_db):
+def read_token_from_db(redis_db):
     data = {
         'client_id': ELASTICPATH_ID,
         'grant_type': 'implicit'
@@ -26,10 +26,10 @@ def get_access_token():
         if auth_credentials:
             if auth_credentials['expires'] > timestamp_now + 100:
                 return auth_credentials['access_token']
-            return request_token(redis_db)
+            return read_token_from_db(redis_db)
     except (ValueError, TypeError):
-        return request_token(redis_db)
-    return request_token(redis_db)
+        return read_token_from_db(redis_db)
+    return read_token_from_db(redis_db)
 
 
 def get_products():
