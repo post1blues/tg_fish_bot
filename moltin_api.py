@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 import requests
 
-from config import ELASTICPATH_ID
+from environments import ELASTICPATH_ID
 from database import get_database_connection
 
 

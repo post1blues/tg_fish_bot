@@ -4,7 +4,7 @@ import textwrap
 import re
 import logging
 
-from config import TG_TOKEN
+from environments import TG_TOKEN
 from database import get_database_connection
 from moltin_api import (
     get_products, get_product_by_id, get_photo_by_id, add_to_cart, get_cart_by_user_id, delete_item, register_customer
