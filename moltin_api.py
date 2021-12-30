@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 import requests
+from contextlib import suppress
 
 from environments import ELASTICPATH_ID
 from database import get_database_connection
@@ -20,15 +21,11 @@ def read_token_from_db(redis_db):
 
 def get_access_token():
     redis_db = get_database_connection()
-    try:
+    with suppress(TypeError):
         auth_credentials = json.loads(redis_db.get('auth_credentials'))
         timestamp_now = datetime.now().timestamp()
-        if auth_credentials:
-            if auth_credentials['expires'] > timestamp_now + 100:
-                return auth_credentials['access_token']
-            return read_token_from_db(redis_db)
-    except (ValueError, TypeError):
-        return read_token_from_db(redis_db)
+        if auth_credentials and auth_credentials['expires'] > timestamp_now + 100:
+            return auth_credentials['access_token']
     return read_token_from_db(redis_db)
 
 
