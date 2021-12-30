@@ -181,6 +181,7 @@ def handle_cart(bot, update):
 
 def handle_email(bot, update):
     user_email = update.message.text.strip()
+    # Regex was found here: https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if re.fullmatch(regex, user_email):
         username = update.message.from_user['username']
