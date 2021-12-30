@@ -19,13 +19,14 @@ def serialize_cart(cart):
     products = cart['data']
     serialized_products = []
     for product in products:
-        serialized_product = dict()
-        serialized_product['name'] = product['name']
-        serialized_product['product_id'] = product['id']
-        serialized_product['description'] = product['description']
-        serialized_product['quantity'] = str(product['quantity'])
-        serialized_product['price_per_unit'] = product['meta']['display_price']['with_tax']['unit']['formatted']
-        serialized_product['total_price'] = product['meta']['display_price']['with_tax']['value']['formatted']
+        serialized_product = {
+            'name': product['name'],
+            'product_id': product['id'],
+            'description': product['description'],
+            'quantity': str(product['quantity']),
+            'price_per_unit': product['meta']['display_price']['with_tax']['unit']['formatted'],
+            'total_price': product['meta']['display_price']['with_tax']['value']['formatted'],
+        }
         serialized_products.append(serialized_product)
     return {'order_total': order_total, 'products': serialized_products}
 
